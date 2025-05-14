@@ -1,0 +1,28 @@
+{
+  "name": "platforma-kurseve-online-backend",
+  "version": "1.0.0",
+  "description": "\"Projekti Backend\"",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ENOVAKU/platforma-kurseve-online-backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ENOVAKU/platforma-kurseve-online-backend/issues"
+  },
+  "homepage": "https://github.com/ENOVAKU/platforma-kurseve-online-backend#readme",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.14.3"
+  }
+}

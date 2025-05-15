@@ -12,6 +12,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.get('/', (req, res) => {
+    res.send('Serveri po funksionon siç duhet!');
+});
 // Rrugët
 app.use('/api/auth', authRoutes);
 app.use('/api/courses', courseRoutes);

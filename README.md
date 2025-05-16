@@ -18,3 +18,8 @@
 - *routes/*: Rrugët e API-së.
 - *.env*: Variablat e ambientit.
 - *server.js*: Skedari kryesor i serverit.
+
+## 📧 Kontakti
+- Autori: *Enovaku*
+- Autori: *Edaci*
+- Email: [enovaku@uet.edu.al](mailto:enovaku@uet.edu.al)

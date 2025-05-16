@@ -14,3 +14,11 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
+
+// config.js
+export const config = {
+    baseUrl: 'http://localhost:5000',
+    token: '', // Lëre bosh, do të popullohet pas kyçjes
+    userId: '', // Lëre bosh, do të ruhet pas regjistrimit
+    courseId: '' // Lëre bosh, do të ruhet pas krijimit të kursit
+};

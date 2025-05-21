@@ -1,23 +1,57 @@
 const express = require('express');
 const router = express.Router();
-
-router.post('/login', (req, res) => {
+const User = require('../models/Users');
+const bcrypt = require('bcrypt');
+const saltRounds = 10; // Numri i rrotullimeve për hash (10 është i mirë për balancim midis sigurisë dhe shpejtësisë)
+router.post('/register', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { name, email, password } = req.body;
 
-        if (!email || !password) {
-            return res.status(400).json({ error: 'Email dhe password janë të detyrueshme' });
+        // routes/auth.js (shto këtë rrugë)
+        router.post('/login', async (req, res) => {
+            try {
+                const { email, password } = req.body;
+
+                const user = await User.findOne({ email });
+                if (!user) {
+                    return res.status(401).json({ error: 'Email ose fjalëkalim i gabuar' });
+                }
+
+                // Krahaso fjalëkalimin e futur me hash-in e ruajtur
+                const isMatch = await bcrypt.compare(password, user.password);
+                if (!isMatch) {
+                    return res.status(401).json({ error: 'Email ose fjalëkalim i gabuar' });
+                }
+
+                res.status(200).json({ message: 'Kyçje e suksesshme', email: user.email });
+            } catch (error) {
+                console.error(error);
+                res.status(500).json({ error: 'Gabim gjatë kyçjes' });
+            }
+        });
+
+        // Kontrollo nëse përdoruesi ekziston
+        const existingUser = await User.findOne({ email });
+        if (existingUser) {
+            return res.status(400).json({ error: 'Emaili është tashmë i regjistruar' });
         }
 
-        // Kontrollo nëse kredencialet janë të sakta (shtuar për testim)
-        if (email !== 'enovaku@uet.edu.al' || password !== 'DurresiTirana5') {
-            return res.status(401).json({ error: 'Email ose password i pasaktë' });
-        }
+        // Hash-o fjalëkalimin
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-        res.json({ message: 'Login i suksesshëm', email, password });
+        // Krijo përdoruesin e ri me fjalëkalim të hash-uar
+        const newUser = new User({
+            name,
+            email,
+            password: hashedPassword
+        });
+
+        // Ruaj në bazën e të dhënave
+        await newUser.save();
+        res.status(201).json({ message: 'Përdoruesi u regjistrua me sukses', email: newUser.email });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ error: 'Problem me serverin' });
+        res.status(500).json({ error: 'Gabim gjatë regjistrimit' });
     }
 });
 

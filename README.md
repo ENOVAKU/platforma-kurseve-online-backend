@@ -21,5 +21,6 @@
 
 ## 📧 Kontakti
 - Autori: *Enovaku*
-- Autori: *Edaci*
+- Autori: *Emucmata*
 - Email: [enovaku@uet.edu.al](mailto:enovaku@uet.edu.al)
+- Email: [emucmata@uet.edu.al](mailto:emucmatau@uet.edu.al)

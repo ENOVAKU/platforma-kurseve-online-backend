@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const User = require('../models/Users');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10; // Numri i rrotullimeve për hash (10 është i mirë për balancim midis sigurisë dhe shpejtësisë)
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { username, email, password } = req.body;
+
+        console.log("Të dhënat nga Postman:", username, email, password);
 
         // routes/auth.js (shto këtë rrugë)
         router.post('/login', async (req, res) => {
@@ -41,7 +43,7 @@ router.post('/register', async (req, res) => {
 
         // Krijo përdoruesin e ri me fjalëkalim të hash-uar
         const newUser = new User({
-            name,
+            username,
             email,
             password: hashedPassword
         });
